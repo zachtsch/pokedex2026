@@ -7,6 +7,7 @@ export default function GuessThatPokemon() {
   // For future, we'll use url from evolution team. [id].tsx
   const pokemonImageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png';
 
+  
   return (
     <View style={styles.container}>
       <Image
