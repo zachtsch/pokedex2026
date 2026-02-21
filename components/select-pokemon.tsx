@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
 import { FlashList } from "@shopify/flash-list";
+import { useCallback, useEffect, useState } from "react";
 
 import { PokemonCard, PokemonCardProps } from "@/components/pokemon-card";
 import { getPokemonData, preCachePokemon } from "@/hooks/use-pokemon-cache";
@@ -56,8 +56,19 @@ export function SelectPokemon({
         ids.map(async (id) => {
           // Try to get cached data for the name
           const cached = await getPokemonData(id);
-          const name = cached?.name || getPokemonName(id);
-          return { id, name };
+
+if (cached?.name) {
+  return { id, name: cached.name };
+}
+
+try {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+  const data = await res.json();
+  return { id, name: data.name };
+} catch {
+  return { id, name: `pokemon_${id}` };
+}
+
         })
       );
 
