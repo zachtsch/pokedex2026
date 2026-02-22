@@ -92,7 +92,7 @@ export default function AboutComponent() {
       <Text style={styles.aboutHeader}>About</Text>
       <Text style={styles.aboutText}>{aboutText}</Text>
 
-      <Link href={`/evolution/${id}`} style={styles.linkButton}>
+      <Link href={`/Evolution/${id}`} style={styles.linkButton}>
         <Text style={styles.linkText}>View Evolution Chain</Text>
       </Link>
     </ScrollView>
