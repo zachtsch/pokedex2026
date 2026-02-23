@@ -59,16 +59,17 @@ export default function AboutComponent() {
 
   const { pokemon, species } = data;
 
-  // Find the first English description and clean up weird line breaks
+  // Find the English description and remove hidden newline/return characters returned by PokeAPI
   const aboutText = species.flavor_text_entries
     .find((entry: any) => entry.language.name === "en")
     ?.flavor_text.replace(/[\f\n\r]/gm, " ");
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      {/* Pokémon Name */}
       <Text style={styles.header}>{pokemon.name.toUpperCase()}</Text>
 
-      {/* Upgraded to official artwork for a better look */}
+      {/* Pokémon Sprite */}
       <Image
         source={{
           uri: pokemon.sprites.other["official-artwork"].front_default,
@@ -76,22 +77,19 @@ export default function AboutComponent() {
         style={styles.sprite}
       />
 
-      <Text style={styles.text}>
-        ID: <Text style={styles.idText}>{pokemon.id}</Text>
-      </Text>
-
-      {/* Added Missing Stats */}
+      {/* Pokémon Stats */}
+      <Text style={styles.idText}>ID: {pokemon.id}</Text>
       <Text style={styles.text}>Height: {pokemon.height / 10}m</Text>
       <Text style={styles.text}>Weight: {pokemon.weight / 10}kg</Text>
-
       <Text style={styles.text}>
         Type: {pokemon.types.map((t: any) => t.type.name).join(", ")}
       </Text>
 
-      {/* Added Missing About Text */}
+      {/* About Header */}
       <Text style={styles.aboutHeader}>About</Text>
       <Text style={styles.aboutText}>{aboutText}</Text>
 
+      {/* Evolution Chain Link */}
       <Link href={`/Evolution/${id}`} style={styles.linkButton}>
         <Text style={styles.linkText}>View Evolution Chain</Text>
       </Link>
@@ -100,12 +98,6 @@ export default function AboutComponent() {
 }
 
 const styles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: "center", alignItems: "center" },
-  container: { flexGrow: 1, alignItems: "center", padding: 20 },
-  header: { fontSize: 28, fontWeight: "bold", marginBottom: 10 },
-  sprite: { width: 200, height: 200, marginBottom: 10 },
-  text: { fontSize: 16, marginBottom: 5, textTransform: "capitalize" },
-  idText: { color: "blue", fontWeight: "bold" },
   aboutHeader: {
     fontSize: 20,
     fontWeight: "bold",
@@ -118,11 +110,44 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 20,
   },
+  centered: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    flexGrow: 1,
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "#ffffff",
+  },
+  header: {
+    fontSize: 28,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  idText: {
+    color: "blue",
+    fontWeight: "bold",
+  },
   linkButton: {
     marginTop: 10,
     padding: 10,
     backgroundColor: "#e0e0e0",
     borderRadius: 5,
   },
-  linkText: { color: "blue", fontWeight: "bold" },
+  linkText: {
+    color: "blue",
+    fontWeight: "bold",
+  },
+  sprite: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 5,
+    textTransform: "capitalize",
+  },
 });
