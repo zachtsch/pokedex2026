@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
@@ -22,20 +22,22 @@ export function PokemonCard({ id, name }: PokemonCardProps) {
 
   return (
     <Link href={`/about/${id}`} asChild>
-      <ThemedView style={styles.card}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{ uri: getPokemonImageUrl(id) }}
-            style={styles.image}
-            contentFit="contain"
-            transition={200}
-          />
-        </View>
-        <ThemedText style={styles.name}>{displayName}</ThemedText>
-        <ThemedText style={styles.id}>
-          #{String(id).padStart(3, "0")}
-        </ThemedText>
-      </ThemedView>
+      <Pressable>
+        <ThemedView style={styles.card}>
+          <View style={styles.imageContainer}>
+            <Image
+              source={{ uri: getPokemonImageUrl(id) }}
+              style={styles.image}
+              contentFit="contain"
+              transition={200}
+            />
+          </View>
+          <ThemedText style={styles.name}>{displayName}</ThemedText>
+          <ThemedText style={styles.id}>
+            #{String(id).padStart(3, "0")}
+          </ThemedText>
+        </ThemedView>
+      </Pressable>
     </Link>
   );
 }
