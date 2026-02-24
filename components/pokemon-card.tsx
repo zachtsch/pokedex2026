@@ -21,7 +21,7 @@ export function PokemonCard({ id, name }: PokemonCardProps) {
   const displayName = name.charAt(0).toUpperCase() + name.slice(1);
 
   return (
-    <Link href={`/pokemon/${id}`} asChild>
+    <Link href={`/about/${id}`} asChild>
       <ThemedView style={styles.card}>
         <View style={styles.imageContainer}>
           <Image
