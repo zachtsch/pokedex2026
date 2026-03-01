@@ -1,48 +1,83 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
+import { Link } from "expo-router";
+
+const types = [
+  "normal",
+  "fire",
+  "water",
+  "grass",
+  "electric",
+  "ice",
+  "fighting",
+  "poison",
+  "ground",
+  "flying",
+  "psychic",
+  "bug",
+  "rock",
+  "ghost",
+  "dragon",
+  "dark",
+  "steel",
+  "fairy",
+];
 
 export default function ByTypeTab() {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Pokemon By Type</Text>
-      
-      <Link 
-        href={{
-          pathname: "/type/[type]",
-          params: { type: "water" }
+
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-between",
         }}
-        asChild
       >
-        <Pressable style={styles.button}>
-          <Text style={styles.buttonText}>Test Water Type</Text>
-        </Pressable>
-      </Link>
-    </View>
+        {types.map((type) => (
+          <Link
+            key={type}
+            href={{
+              pathname: "/type/[type]",
+              params: { type },
+            }}
+            asChild
+          >
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>{type.toLowerCase()}</Text>
+            </Pressable>
+          </Link>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexGrow: 1,
+    backgroundColor: "black",
+    padding: 20,
   },
   title: {
-    color: 'white',
-    fontSize: 24,
-    fontWeight: 'bold',
+    color: "white",
+    fontSize: 26,
+    fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
   },
   button: {
-    backgroundColor: 'white',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    backgroundColor: "white",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderRadius: 8,
+    margin: 6,
+    width: "45%",
+    alignItems: "center",
   },
   buttonText: {
-    color: 'black',
-    fontSize: 16,
-    fontWeight: 'bold',
-  }
+    color: "black",
+    fontSize: 14,
+    fontWeight: "bold",
+  },
 });
