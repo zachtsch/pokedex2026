@@ -1,5 +1,5 @@
-import { Image } from 'expo-image';
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+import { useState, useEffect, useRef } from "react";
+import { TextInput, StyleSheet, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SelectPokemon } from "@/components/select-pokemon";
@@ -7,9 +7,32 @@ import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
 import { useThemeColor } from "@/hooks/use-theme-color";
 
-export default function TabTwoScreen() {
+import { getPokemonData, preCachePokemon } from "@/hooks/use-pokemon-cache";
 
+export default function TabTwoScreen() {
   const backgroundColor = useThemeColor({}, "background");
+  const [userInput, setUserInput] = useState('');
+  const [displayCards, setDisplayCards] = useState<number[]>([]);
+
+  let pokemon = ['%#$@'] // '%#$@' removes there from being an array zero
+  for (let id = 1; id < 1000; id++) {
+    getPokemonData(id).then(p => {
+      if (p != null) pokemon.push(p.name);
+    })
+  }
+
+  useEffect(() => {
+    setDisplayCards([])
+    let newCards: number[] = [];
+
+    if (pokemon == null) return;
+    for (let i = 1; i < pokemon.length; i++) {
+      if (pokemon[i].includes(userInput.toLowerCase())) {
+        newCards.push(i)
+      }
+    }
+    setDisplayCards(newCards)
+  }, [userInput]);
 
   return (
     <SafeAreaView
@@ -21,13 +44,15 @@ export default function TabTwoScreen() {
         <ThemedView style={styles.searchBar}>
           <TextInput
             style={styles.searchInput}
-            placeholder='Type Something...'>
+            value={userInput}
+            onChangeText={(text) => setUserInput(text)}
+            placeholder='Type in a Pokemon...'>
           </TextInput>
           <Pressable style={styles.searchBtn}>
             <ThemedText style={styles.searchBtnText}>Search</ThemedText>
           </Pressable>
         </ThemedView>
-        <SelectPokemon count={1000} />
+        <SelectPokemon pokemonIds={displayCards} />
       </ThemedView>
     </SafeAreaView>
 
