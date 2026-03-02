@@ -1,5 +1,4 @@
-import { Image } from 'expo-image';
-import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native';
+import { TextInput, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SelectPokemon } from "@/components/select-pokemon";
