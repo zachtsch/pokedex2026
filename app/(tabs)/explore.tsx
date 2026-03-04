@@ -18,16 +18,25 @@ export default function TabTwoScreen() {
 
   // Build name map once on mount
   useEffect(() => {
-    const map: Record<number, string> = {};
-    const promises = [];
-    for (let id = 1; id < 1000; id++) {
-      promises.push(
-        getPokemonData(id).then((p) => {
-          if (p != null) map[id] = p.name.toLowerCase();
-        })
+    (async () => {
+      const res = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
       );
-    }
-    Promise.all(promises).then(() => setNameMap(map));
+      const json = await res.json();
+
+      const map: Record<number, string> = {};
+
+      for (const p of json.results as { name: string; url: string }[]) {
+        const parts = p.url.split("/").filter(Boolean);
+        const id = Number(parts[parts.length - 1]); // last part is the id
+
+        if (!Number.isNaN(id)) {
+          map[id] = p.name.toLowerCase();
+        }
+      }
+
+      setNameMap(map);
+    })();
   }, []);
 
   // Filter whenever user types
