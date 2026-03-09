@@ -21,7 +21,7 @@ export default function GuessThatPokemon() {
   const [pokemonName, setPokemonName] = useState<string>("");
 
   const getRandomPokemon = async () => {
-    const randomId = Math.floor(Math.random() * 898) + 1;
+    const randomId = Math.floor(Math.random() * 151) + 1;
     setPokemonId(randomId);
 
     try {
