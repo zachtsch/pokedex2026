@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { TextInput, StyleSheet, Pressable } from "react-native";
+import { useState, useEffect } from "react";
+import { TextInput, StyleSheet, Pressable, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SelectPokemon } from "@/components/select-pokemon";
@@ -48,7 +48,11 @@ export default function TabTwoScreen() {
             onChangeText={(text) => setUserInput(text)}
             placeholder='Type in a Pokemon...'>
           </TextInput>
-          <Pressable style={styles.searchBtn}>
+          <Pressable onPress={() => {
+            Keyboard.dismiss();
+          }}
+            style={styles.searchBtn}
+          >
             <ThemedText style={styles.searchBtnText}>Search</ThemedText>
           </Pressable>
         </ThemedView>
