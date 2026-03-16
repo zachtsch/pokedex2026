@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { TextInput, StyleSheet, Pressable } from "react-native";
+import { useState, useEffect } from "react";
+import { TextInput, StyleSheet, Pressable, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { SelectPokemon } from "@/components/select-pokemon";
@@ -59,20 +59,23 @@ export default function TabTwoScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor }} edges={["top"]}>
       <ThemedView style={styles.parentContainer}>
-        <ThemedText style={styles.header}>Search For Your Pokemon</ThemedText>
+        <ThemedText style={styles.header}>Search</ThemedText>
         <ThemedView style={styles.searchBar}>
           <TextInput
-            ref={inputRef}
+            autoCorrect={false}
+            autoCapitalize="none"
+            spellCheck={false} //IOS specific
+            returnKeyType="search" //Changes return title to search instead of return
             style={styles.searchInput}
             value={userInput}
             onChangeText={(text) => setUserInput(text)}
-            placeholder="Search..."
-            placeholderTextColor="gray"
-            autoCorrect={false}
-            autoCapitalize="none"
-            spellCheck={false}
-          />
-          <Pressable style={styles.searchBtn}>
+            placeholder='Type in a Pokemon...'>
+          </TextInput>
+          <Pressable onPress={() => {
+            Keyboard.dismiss();
+          }}
+            style={styles.searchBtn}
+          >
             <ThemedText style={styles.searchBtnText}>Search</ThemedText>
           </Pressable>
         </ThemedView>
