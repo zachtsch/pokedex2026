@@ -40,9 +40,13 @@ export default function TabTwoScreen() {
       edges={["top"]}
     >
       <ThemedView style={styles.parentContainer}>
-        <ThemedText style={styles.header}>Search For Your Pokemon</ThemedText>
+        <ThemedText style={styles.header}>Search</ThemedText>
         <ThemedView style={styles.searchBar}>
           <TextInput
+            autoCorrect={false}
+            autoCapitalize="none"
+            spellCheck={false} //IOS specific
+            returnKeyType="search" //Changes return title to search instead of return
             style={styles.searchInput}
             value={userInput}
             onChangeText={(text) => setUserInput(text)}
