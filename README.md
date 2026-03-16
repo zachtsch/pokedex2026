@@ -4,6 +4,8 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 This Pokédex app is a student project created for educational purposes. Pokémon data and images are fetched from the public PokéAPI. Pokémon and Pokémon character names are trademarks of Nintendo, Game Freak, and The Pokémon Company. This project is non-commercial and not affiliated with or endorsed by them.
 
+https://pokedex2026--c3edpa6u1z.expo.app/
+
 ## Get started
 
 1. Install dependencies

@@ -13,7 +13,7 @@ export default function HomeScreen() {
           Select a Pokémon to learn more!
         </ThemedText>
       </View>
-      <SelectPokemon count={1000} />
+      <SelectPokemon count={1025} />
     </ThemedView>
   );
 }
